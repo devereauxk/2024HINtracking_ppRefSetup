@@ -31,6 +31,7 @@ HITrackingStudies/HITrackingStudies/test/plottingMacro/plotHistXXX.C
 ```
 
 ***Making performance tree***
+
 navigate to the analyzer directory:
 ```
 cd HITrackingStudies/test/
