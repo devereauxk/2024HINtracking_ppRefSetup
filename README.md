@@ -10,7 +10,7 @@ cd CMSSW_14_1_7/src
 
 cmsenv
 
-git clone git@github.com:RAGHUMATAPITA/2024HINtracking_ppRefSetup.git
+git clone -b ptHatWeightandVzWeight git@github.com:RAGHUMATAPITA/2024HINtracking_ppRefSetup.git
 
 scram b -j 8
 ```
