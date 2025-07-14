@@ -1,5 +1,5 @@
 ***To setup the code, please, follow:***
-
+```
 ssh -XY username@lxplus8.cern.ch
 
 voms-proxy-init -voms cms
@@ -13,18 +13,22 @@ cmsenv
 git clone git@github.com:RAGHUMATAPITA/2024HINtracking_ppRefSetup.git
 
 scram b -j 8
+```
 
 To prepare the trees and histograms for performance plots, please, use:
-
+```
 HITrackingStudies/HITrackingStudies/test/run_PPRef_cfg.py
+```
 
 For control plots, see macros:
-
+```
 HITrackingStudies/HITrackingStudies/test/plottingMacro/macro_control_plots_XXX.C
+```
 
 For efficiency and fake rate use:
-
+```
 HITrackingStudies/HITrackingStudies/test/plottingMacro/plotHistXXX.C
+```
 
 ***Making performance tree***
 navigate to the analyzer directory:
