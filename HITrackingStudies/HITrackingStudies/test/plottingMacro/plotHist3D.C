@@ -6,7 +6,7 @@ void plotHist3D() {
 
   gStyle->SetOptStat(0);
 
-  TFile *f = new TFile("trk.root");
+  TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/LowPU_Pythia_5p36TeV.root");
 
   char ndir[256] = "HITrackCorrections";
   double ptmax = 300.;

@@ -15,7 +15,21 @@ void plotHist2D() {
   //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/rpradhan/Tracking_ppref_5p36TeV/Pythia8_NoPU_0p5MEvents_TuneCP5_QCD_ptHat15_5360GeV/Pythia_NoPU_NoTrigger_TuneCP5_QCD_ptHat15_5p36TeV_vzpthatWeight_vzcut_Nom/250610_010438/0000/Pythia_NoPU_TuneCP5_QCD_ptHat15_5p36TeV_vzpthatWeight_vzcut_nominal.root");
 
   //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/rpradhan/TrackingEffTables2022PbPbRun/PythiaHijing_OO_5362GeV_NoPU_100kEvents/crab_preliminary2023PbPbCuts_effTables_generalTracks_OO_PythiaHijing/250609_133239/0000/OO_PythiaHijing_noPU.root");
-  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/vpant/OO_Hijing_pprecoanaTrack.root");
+  //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/vpant/OO_Hijing_pprecoanaTrack.root");
+  
+  
+  //TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/LowPU_Pythia_5p36TeV.root");
+
+  // this is ppref no pileup, desipte the file saying low pu
+  //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/Pythia8_NoPU_0p5MEvents_TuneCP5_QCD_ptHat15_5360GeV/Pythia_NoPU_NoTrigger_TuneCP5_QCD_ptHat15_5p36TeV_vzpthatWeight_vzcut_Nominal/250719_224050/LowPU_Pythia_5p36TeV.root");
+  //const char* suffix = "Pythia_NoPU_TuneCP5_QCD_ptHat15_5p36TeV_VzpThatWeight_VzCut";
+
+  // official ppref MC
+  //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/crab_QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal/250723_153015/OfficialppMC_Pythia_5p36TeV.root");
+  //const char* suffix = "QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal";
+
+  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/crab_QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal_all/250723_180824/OfficialppMC_Pythia_5p36TeV.root");
+  const char* suffix = "QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal_all";
   
 
   char ndir[256] = "HITrackCorrections";
@@ -78,6 +92,14 @@ void plotHist2D() {
   rSec->SetMaximum(0.05); rSec->SetMinimum(0.0);
   rSec->SetTitle("Non-Primary Reconstruction Fraction");
   rSec->Draw("colz");
+
+  // print out weight histograms after ratios taken
+  TFile *fweights = new TFile(Form("files/%s.root", suffix), "RECREATE");
+  rEff->Write();
+  rMul->Write();
+  rFak->Write();
+  rSec->Write();
+  fweights->Close();
 
   //---------------------------------------------
 
@@ -184,7 +206,7 @@ void plotHist2D() {
   hDumPtEff->GetYaxis()->SetTitle("Absolute efficiency");
   c7->cd(1); gPad->SetTicks(); c7->GetPad(1)->SetLeftMargin(0.12); c7->GetPad(1)->SetBottomMargin(0.13); c7->GetPad(1)->SetLogx(0); hDumEtaEff->Draw(); gEffEta->Draw("pc"); gEffEta2->Draw("pc"); legEta->Draw();
   c7->cd(2); gPad->SetTicks(); c7->GetPad(2)->SetLeftMargin(0.12); c7->GetPad(2)->SetBottomMargin(0.13); c7->GetPad(2)->SetLogx(); hDumPtEff->Draw(); gEffPt->Draw("pc"); gEffPt2->Draw("pc"); legPt->Draw();
-  saveCanvas(c7, "files", "AbsoluteEfficiency_OO_Hijing_5p36TeV_NoPU");
+  saveCanvas(c7, "files", Form("AbsoluteEfficiency_%s", suffix));
 
   // Multiple Reco
   TGraphAsymmErrors *gMulEta = new TGraphAsymmErrors(); gMulEta->SetName("gMulEta");
@@ -228,8 +250,8 @@ void plotHist2D() {
   legPt2 = (TLegend*) legPt->Clone(); legPt2->SetY1(0.65); legPt2->SetY2(0.85);
   c8->cd(1); gPad->SetLogx(0); gPad->SetTicks(); c8->GetPad(1)->SetLeftMargin(0.12); c8->GetPad(1)->SetBottomMargin(0.13); hDumEtaMul->Draw(); gMulEta->Draw("pc"); gMulEta2->Draw("pc"); legEta2->Draw();
   c8->cd(2); gPad->SetLogx(1); gPad->SetTicks(); c8->GetPad(2)->SetLeftMargin(0.12); c8->GetPad(2)->SetBottomMargin(0.13); hDumPtMul->Draw(); gMulPt->Draw("pc"); gMulPt2->Draw("pc"); legPt2->Draw();
-  saveCanvas(c8, "files", "MultipleReconstruction_OO_Hijing_5p36TeV_NoPU");
-  
+  saveCanvas(c8, "files", Form("MultipleReconstruction_%s", suffix));
+
   // Fakes
   TGraphAsymmErrors *gFakEta = new TGraphAsymmErrors();  gFakEta->SetName("gFakEta");
   gFakEta->BayesDivide(hFakEta,hRecEta);
@@ -272,7 +294,7 @@ void plotHist2D() {
   gPad->SetTicks(); gPad->SetLeftMargin(0.12); gPad->SetBottomMargin(0.13);
   c9->cd(2); hDumPtFak->Draw(); gFakPt->Draw("pc"); gFakPt2->Draw("pc"); legPt2->Draw();
   gPad->SetTicks(); gPad->SetLeftMargin(0.12); gPad->SetBottomMargin(0.13); gPad->SetLogx(1);
-  saveCanvas(c9, "files", "FakeRate_OO_Hijing_5p36TeV_NoPU");
+  saveCanvas(c9, "files", Form("FakeRate_%s", suffix));
 //  c9->GetPad(2)->SetLogx();
 
   // Secondaries
@@ -315,9 +337,9 @@ void plotHist2D() {
   gPad->SetTicks(); gPad->SetLeftMargin(0.15); gPad->SetBottomMargin(0.13); 
   c10->cd(2); hDumPtSec->Draw(); gSecPt->Draw("pc"); gSecPt2->Draw("pc"); legPt2->Draw();
   gPad->SetTicks(); gPad->SetLeftMargin(0.15); gPad->SetBottomMargin(0.13); gPad->SetLogx(1);
-  saveCanvas(c10, "files", "SecondaryReconstruction_OO_Hijing_5p36TeV_NoPU");
+  saveCanvas(c10, "files", Form("SecondaryReconstruction_%s", suffix));
 
-  TFile *fout = new TFile("files/Recreate_OO_Hijing_5p36TeV_NoPU.root","RECREATE");
+  TFile *fout = new TFile(Form("files/Recreate_%s.root", suffix), "RECREATE");
   gEffPt->Write(); gEffPt2->Write(); gEffEta->Write(); gEffEta2->Write();
   gMulPt->Write(); gMulPt2->Write(); gMulEta->Write(); gMulEta2->Write();
   gFakPt->Write(); gFakPt2->Write(); gFakEta->Write(); gFakEta2->Write();

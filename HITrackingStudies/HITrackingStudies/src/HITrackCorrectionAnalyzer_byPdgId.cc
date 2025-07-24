@@ -28,6 +28,7 @@
 #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticle.h"
 #include "SimDataFormats/TrackingAnalysis/interface/TrackingParticleFwd.h"
 #include "SimDataFormats/Associations/interface/TrackAssociation.h"
+#include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
 
 // Particle Flow
 #include "DataFormats/ParticleFlowCandidate/interface/PFCandidate.h"
@@ -42,10 +43,10 @@
 
 #include "HITrackingStudies/HITrackingStudies/interface/HITrackCorrectionTreeHelper.h"
 
-class HITrackCorrectionAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedResources> {
+class HITrackCorrectionAnalyzer_byPdgId : public edm::one::EDAnalyzer<edm::one::SharedResources> {
    public:
-      explicit HITrackCorrectionAnalyzer(const edm::ParameterSet&);
-      ~HITrackCorrectionAnalyzer();
+      explicit HITrackCorrectionAnalyzer_byPdgId(const edm::ParameterSet&);
+      ~HITrackCorrectionAnalyzer_byPdgId();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions); 
       static bool vtxSort( const reco::Vertex &  a, const reco::Vertex & b );
@@ -63,12 +64,15 @@ class HITrackCorrectionAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedRe
 
 
       std::map<std::string,TTree*> trkTree_;
-      std::map<std::string,TH2F*> trkCorr2D_;
+      std::map<std::string,std::map<int, TH2F*>> trkCorr2D_;
       std::map<std::string,TH3F*> trkCorr3D_;
       TH3F * momRes_;
       TH1F * vtxZ_;
       TH1F * pthat_;
       TF1 * vtxWeightFunc_;
+
+      std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112}; // 0 is for all other particles
+      TH1F * pdgId_;
 
       HITrackCorrectionTreeHelper treeHelper_;
 
@@ -79,7 +83,8 @@ class HITrackCorrectionAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedRe
       edm::EDGetTokenT<TrackingParticleCollection> tpEffSrc_;
       edm::EDGetTokenT<reco::RecoToSimCollection> associatorMapRTS_;
       edm::EDGetTokenT<reco::SimToRecoCollection> associatorMapSTR_;      
-
+      edm::EDGetTokenT<GenEventInfoProduct> genInfoToken_;
+  
       std::vector<double> ptBins_;
       std::vector<double> etaBins_;
       std::vector<double> occBins_;
@@ -91,7 +96,8 @@ class HITrackCorrectionAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedRe
       std::vector<double> vtxWeightParameters_;
       std::vector<int> algoParameters_;
       bool doVtxReweighting_;
-
+      bool dopthatWeight_;
+  
       bool applyVertexZCut_;
       double vertexZMax_;
 
@@ -115,7 +121,7 @@ class HITrackCorrectionAnalyzer : public edm::one::EDAnalyzer<edm::one::SharedRe
 
 };
 
-HITrackCorrectionAnalyzer::HITrackCorrectionAnalyzer(const edm::ParameterSet& iConfig):
+HITrackCorrectionAnalyzer_byPdgId::HITrackCorrectionAnalyzer_byPdgId(const edm::ParameterSet& iConfig):
 treeHelper_(),
 vertexSrc_(consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("vertexSrc"))),
 trackSrc_(consumes<edm::View<reco::Track> >(iConfig.getParameter<edm::InputTag>("trackSrc"))),
@@ -123,6 +129,7 @@ tpFakSrc_(consumes<TrackingParticleCollection>(iConfig.getParameter<edm::InputTa
 tpEffSrc_(consumes<TrackingParticleCollection>(iConfig.getParameter<edm::InputTag>("tpEffSrc"))),
 associatorMapRTS_(consumes<reco::RecoToSimCollection>(iConfig.getParameter<edm::InputTag>("associatorMap"))),
 associatorMapSTR_(consumes<reco::SimToRecoCollection>(iConfig.getParameter<edm::InputTag>("associatorMap"))),
+genInfoToken_(consumes<GenEventInfoProduct>(edm::InputTag("generator"))),
 ptBins_(iConfig.getParameter<std::vector<double> >("ptBins")),
 etaBins_(iConfig.getParameter<std::vector<double> >("etaBins")),
 occBins_(iConfig.getParameter<std::vector<double> >("occBins")),
@@ -132,6 +139,7 @@ crossSection_(iConfig.getParameter<double>("crossSection")),
 vtxWeightParameters_(iConfig.getParameter<std::vector<double> >("vtxWeightParameters")),
 algoParameters_(iConfig.getParameter<std::vector<int> >("algoParameters")),
 doVtxReweighting_(iConfig.getParameter<bool>("doVtxReweighting")),
+dopthatWeight_(iConfig.getParameter<bool>("dopthatWeight")),
 applyVertexZCut_(iConfig.getParameter<bool>("applyVertexZCut")),
 vertexZMax_(iConfig.getParameter<double>("vertexZMax")),
 applyTrackCuts_(iConfig.getParameter<bool>("applyTrackCuts")),
@@ -153,10 +161,11 @@ pfCandSrc_(consumes<reco::PFCandidateCollection>(iConfig.getParameter<edm::Input
    edm::Service<TFileService> fs;
    initHistos(fs);
 
-   vtxWeightFunc_ = new TF1("vtxWeight","gaus(0)/gaus(3)",-50.,50.);
+   //vtxWeightFunc_ = new TF1("vtxWeight","gaus(0)/gaus(3)",-50.,50.);
+   vtxWeightFunc_ = new TF1("vtxWeight", "pol3", -50.,50.);
    // vtxWeightParameters should have size 6,
    // one really should throw an error if not
-   if( (int)vtxWeightParameters_.size() == 6 )
+   if( (int)vtxWeightParameters_.size() == 4 )
    {
      for( unsigned int i=0;i<vtxWeightParameters_.size(); i++)
        vtxWeightFunc_->SetParameter(i,vtxWeightParameters_[i]);
@@ -171,13 +180,13 @@ pfCandSrc_(consumes<reco::PFCandidateCollection>(iConfig.getParameter<edm::Input
    }
 }
 
-HITrackCorrectionAnalyzer::~HITrackCorrectionAnalyzer()
+HITrackCorrectionAnalyzer_byPdgId::~HITrackCorrectionAnalyzer_byPdgId()
 {
    delete vtxWeightFunc_;
 }
 
 void
-HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+HITrackCorrectionAnalyzer_byPdgId::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
 
@@ -206,6 +215,10 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
       if( JetCand.pt() > leadingJet ) leadingJet = JetCand.pt();//finding leading pT jets
    }
 
+   edm::Handle<GenEventInfoProduct> genInfo;
+   iEvent.getByToken(genInfoToken_, genInfo);
+   float weight = genInfo->weight();
+
    pthat_->Fill( leadingJet, crossSection_ );
 
    // obtain reconstructed tracks
@@ -218,7 +231,7 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
   
    // sort the vertcies by number of tracks in descending order
    reco::VertexCollection vsorted = *vertex;
-   std::sort( vsorted.begin(), vsorted.end(), HITrackCorrectionAnalyzer::vtxSort );
+   std::sort( vsorted.begin(), vsorted.end(), HITrackCorrectionAnalyzer_byPdgId::vtxSort );
 
    // skip events with no PV, this should not happen
    if( vsorted.size() == 0) return;
@@ -232,9 +245,11 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
    // determine vertex reweighting factor
    double w = 1.0;
    w = w * crossSection_;
-   if ( doVtxReweighting_ )
-     w *= vtxWeightFunc_->Eval(vsorted[0].z());
-
+   //std::cout<<"weight before vz reweight: "<<vsorted[0].z()<<"  "<<w<<std::endl;
+   if ( doVtxReweighting_ ) w *= vtxWeightFunc_->Eval(vsorted[0].z());
+   //std::cout<<"weight after vz reweight: "<<w<<std::endl;
+   if(dopthatWeight_) w = w * weight;
+   //std::cout<<"weight after pthat reweight: "<<weight<<"  "<<w<<std::endl;
    vtxZ_->Fill(vsorted[0].z(),w);
 
    // determine event multipliticy
@@ -262,7 +277,7 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
    // ---------------------
    // loop through reco tracks to fill fake, reco, and secondary histograms
    // ---------------------
-
+   /*
    for(edm::View<reco::Track>::size_type i=0; i<tcol->size(); ++i){ 
      edm::RefToBase<reco::Track> track(tcol, i);
      reco::Track* tr=const_cast<reco::Track*>(track.get());
@@ -296,6 +311,7 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
      }
      if( fillNTuples_) trkTree_["rec"]->Fill(); 
    }
+    */
 
    // ---------------------
    // loop through sim particles to fill matched, multiple,  and sim histograms 
@@ -308,7 +324,15 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
          
      if(tp->status() < 0 || tp->charge()==0) continue; //only charged primaries
 
-     trkCorr2D_["hsim"]->Fill(tp->eta(),tp->pt(), w);
+     // fill PDG histograms
+     int pdgId = tp->pdgId();
+     for (int i = 0; i < (int)pdgIdSelections.size(); ++i) {
+       if (i == 0 || std::abs(pdgId) == pdgIdSelections[i]) {
+         trkCorr2D_["hsim"][pdgIdSelections[i]]->Fill(tp->eta(), tp->pt(), w);
+         pdgId_->Fill(i);
+       }
+     }
+
      trkCorr3D_["hsim3D"]->Fill(tp->eta(),tp->pt(), occ, w);
 
      // find number of matched reco tracks that pass cuts
@@ -338,16 +362,22 @@ HITrackCorrectionAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSet
      }
      if( nrec>0 && fillNTuples_ ) treeHelper_.Set(*tp, *(rt.begin()->first.get()), vsorted[0], rt.size(), cbin);
      if( nrec==0 && fillNTuples_ ) treeHelper_.Set(*tp, cbin);
-     if(nrec>0) trkCorr2D_["heff"]->Fill(tp->eta(),tp->pt(), w);
+
+     for (int i = 0; i < (int)pdgIdSelections.size(); ++i) {
+       if (i == 0 || std::abs(pdgId) == pdgIdSelections[i]) {
+         if(nrec>0) trkCorr2D_["heff"][pdgIdSelections[i]]->Fill(tp->eta(),tp->pt(), w);
+       }
+     }     
+
      if(nrec>0) trkCorr3D_["heff3D"]->Fill(tp->eta(),tp->pt(), occ, w);
-     if(nrec>1) trkCorr2D_["hmul"]->Fill(tp->eta(),tp->pt(), w);
+     //if(nrec>1) trkCorr2D_["hmul"]->Fill(tp->eta(),tp->pt(), w);
      if(nrec>1) trkCorr3D_["hmul3D"]->Fill(tp->eta(),tp->pt(), occ, w);
-     if( fillNTuples_) trkTree_["sim"]->Fill(); 
+     //if( fillNTuples_) trkTree_["sim"]->Fill(); 
    }
 }
 
 bool
-HITrackCorrectionAnalyzer::multCuts(const reco::Track & track, const reco::Vertex & vertex)
+HITrackCorrectionAnalyzer_byPdgId::multCuts(const reco::Track & track, const reco::Vertex & vertex)
 {
 
    math::XYZPoint vtxPoint(0.0,0.0,0.0);
@@ -374,7 +404,7 @@ HITrackCorrectionAnalyzer::multCuts(const reco::Track & track, const reco::Verte
 }
 
 bool
-HITrackCorrectionAnalyzer::passesTrackCuts(const reco::Track & track, const reco::Vertex & vertex)
+HITrackCorrectionAnalyzer_byPdgId::passesTrackCuts(const reco::Track & track, const reco::Vertex & vertex)
 {
    if ( ! applyTrackCuts_ ) return true;
 
@@ -401,9 +431,8 @@ HITrackCorrectionAnalyzer::passesTrackCuts(const reco::Track & track, const reco
        return false;
    if(fabs(dxy/dxysigma) > dxyErrMax_) return false;
    if(fabs(dz/dzsigma) > dzErrMax_) return false;
-   if(fabs(track.ptError()) / track.pt() > ptErrMax_) return false; // original
+   //if(fabs(track.ptError()) / track.pt() > ptErrMax_) return false; // original
 
-   /*
    //~~~~~~~~~~~~~~~~~~~~~change by Raghunath to test the fake at hight pT~~~~~~~~~~~~~~~~~~~~~~~~~
    if(track.pt() > 10)
      {
@@ -415,7 +444,6 @@ HITrackCorrectionAnalyzer::passesTrackCuts(const reco::Track & track, const reco
      }
    
    //~~~~~~~~~~~~~~~~~~~~~change by Raghunath to test the fake at hight pT~~~~~~~~~~~~~~~~~~~~~~~~~
-   */
    
    if(nhits < nhitsMin_ ) return false;
    int count = 0;
@@ -432,7 +460,7 @@ HITrackCorrectionAnalyzer::passesTrackCuts(const reco::Track & track, const reco
 }
 
 bool 
-HITrackCorrectionAnalyzer::caloMatched( const reco::Track & track, const edm::Event& iEvent, unsigned it )
+HITrackCorrectionAnalyzer_byPdgId::caloMatched( const reco::Track & track, const edm::Event& iEvent, unsigned it )
 {
   if( ! doCaloMatched_ ) return true;
   
@@ -474,18 +502,18 @@ HITrackCorrectionAnalyzer::caloMatched( const reco::Track & track, const edm::Ev
 
 
 void
-HITrackCorrectionAnalyzer::initHistos(const edm::Service<TFileService> & fs)
+HITrackCorrectionAnalyzer_byPdgId::initHistos(const edm::Service<TFileService> & fs)
 {
 
-
-  std::vector<std::string> hNames2D = { "hsim", "hrec", "hmul", "hfak",
-                                        "heff", "hsec" };
+  std::vector<std::string> hNames2D = { "hsim", "heff" };
 
   for( auto name : hNames2D )
   {
-     trkCorr2D_[name] = fs->make<TH2F>(name.c_str(),";#eta;p_{T}",
+    for ( auto id : pdgIdSelections) {
+       trkCorr2D_[name][id] = fs->make<TH2F>(Form("%s_%d", name.c_str(), id),";#eta;p_{T}",
                            etaBins_.size()-1, &etaBins_[0],
                            ptBins_.size()-1, &ptBins_[0]);
+    }
   }
 
   std::vector<std::string> hNames3D = { "hsim3D", "hrec3D", "hmul3D", "hfak3D",
@@ -499,6 +527,7 @@ HITrackCorrectionAnalyzer::initHistos(const edm::Service<TFileService> & fs)
                            occBins_.size()-1, &occBins_[0]);
   }
 
+  pdgId_ = fs->make<TH1F>("pdgId","PDG ID of the particle", 6, 0.5, 6.5);
 
   vtxZ_ = fs->make<TH1F>("vtxZ","Vertex z position",100,-30,30);
   pthat_ = fs->make<TH1F>("pthat", "p_{T}(GeV)", 8000,0,800);
@@ -520,7 +549,7 @@ HITrackCorrectionAnalyzer::initHistos(const edm::Service<TFileService> & fs)
 }
 
 bool
-HITrackCorrectionAnalyzer::vtxSort( const reco::Vertex &  a, const reco::Vertex & b )
+HITrackCorrectionAnalyzer_byPdgId::vtxSort( const reco::Vertex &  a, const reco::Vertex & b )
 {
   if( a.tracksSize() != b.tracksSize() )
     return  a.tracksSize() > b.tracksSize() ? true : false ;
@@ -529,17 +558,17 @@ HITrackCorrectionAnalyzer::vtxSort( const reco::Vertex &  a, const reco::Vertex 
 }
 
 void
-HITrackCorrectionAnalyzer::beginJob()
+HITrackCorrectionAnalyzer_byPdgId::beginJob()
 {
 }
 
 void
-HITrackCorrectionAnalyzer::endJob()
+HITrackCorrectionAnalyzer_byPdgId::endJob()
 {
 }
 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
-void HITrackCorrectionAnalyzer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
+void HITrackCorrectionAnalyzer_byPdgId::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
    edm::ParameterSetDescription desc;
@@ -558,7 +587,8 @@ void HITrackCorrectionAnalyzer::fillDescriptions(edm::ConfigurationDescriptions&
    desc.add<bool>("doCaloMatched", true);
    desc.add<double>("reso", 2.0);
    desc.add<double>("crossSection", 1.0);
-   desc.add<bool>("doVtxReweighting", false); 
+   desc.add<bool>("doVtxReweighting", false);
+   desc.add<bool>("dopthatWeight", false);
    desc.add<bool>("applyVertexZCut", false);
    desc.add<double>("vertexZMax", 15.0);    
    desc.add<bool>("applyTrackCuts", true);
@@ -577,4 +607,4 @@ void HITrackCorrectionAnalyzer::fillDescriptions(edm::ConfigurationDescriptions&
 
 
 //define this as a plug-in
-DEFINE_FWK_MODULE(HITrackCorrectionAnalyzer);
+DEFINE_FWK_MODULE(HITrackCorrectionAnalyzer_byPdgId);

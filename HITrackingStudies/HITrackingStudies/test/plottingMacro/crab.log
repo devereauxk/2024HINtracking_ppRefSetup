@@ -1,0 +1,158 @@
+DEBUG 2025-07-19 21:17:34.926 UTC: 	 CRAB Client version: v3.250522
+DEBUG 2025-07-19 21:17:34.926 UTC: 	 Running on: Linux lxplus807.cern.ch 4.18.0-553.56.1.el8_10.x86_64 #1 SMP Mon Jun 2 12:33:13 EDT 2025 x86_64 x86_64 x86_64 GNU/Linux
+DEBUG 2025-07-19 21:17:34.926 UTC: 	 Not using Singularity
+DEBUG 2025-07-19 21:17:34.926 UTC: 	 Operating System: Red Hat Enterprise Linux 8.10 (Ootpa)
+DEBUG 2025-07-19 21:17:34.926 UTC: 	 Executing command: 'checkwrite'
+DEBUG 2025-07-19 21:17:34.926 UTC: 	 Found CRAB cache file /afs/cern.ch/user/k/kdeverea/.crab3
+DEBUG 2025-07-19 21:17:35.014 UTC: 	 Checking credentials
+DEBUG 2025-07-19 21:17:35.015 UTC: 	 Found proxy file /tmp/x509up_u161760
+DEBUG 2025-07-19 21:17:35.015 UTC: 	 Making sure it has proper VOMS extension
+DEBUG 2025-07-19 21:17:35.015 UTC: 	 Executing command :
+ voms-proxy-info --vo --file /tmp/x509up_u161760
+DEBUG 2025-07-19 21:17:35.515 UTC: 	 output : cms
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-19 21:17:35.515 UTC: 	 Getting proxy life time left
+DEBUG 2025-07-19 21:17:35.515 UTC: 	 Executing command :
+ voms-proxy-info --actimeleft --timeleft --file /tmp/x509up_u161760
+DEBUG 2025-07-19 21:17:35.987 UTC: 	 output : 40586
+40586
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-19 21:17:35.988 UTC: 	 Proxy valid for 11:16:26 hours
+DEBUG 2025-07-19 21:17:35.988 UTC: 	 Retrieving username ...
+DEBUG 2025-07-19 21:17:35.988 UTC: 	 Retrieving username from CRIC...
+DEBUG 2025-07-19 21:17:36.743 UTC: 	 username is kdeverea
+INFO 2025-07-19 21:17:37.944 UTC: 	 Rucio client intialized for account kdeverea
+DEBUG 2025-07-19 21:17:37.944 UTC: 	 Command use: checkwrite
+DEBUG 2025-07-19 21:17:37.944 UTC: 	 Options use: ['--site=T2_CH_CERN']
+DEBUG 2025-07-19 21:17:37.944 UTC: 	 Instance is None
+DEBUG 2025-07-19 21:17:37.944 UTC: 	 Server base url is None
+DEBUG 2025-07-19 21:17:37.944 UTC: 	 Retrieving username ...
+DEBUG 2025-07-19 21:17:37.944 UTC: 	 Retrieving username from CRIC...
+DEBUG 2025-07-19 21:17:38.771 UTC: 	 username is kdeverea
+INFO 2025-07-19 21:17:38.771 UTC: 	 Will check write permission in the default location /store/user/<username>
+INFO 2025-07-19 21:17:38.771 UTC: 	 Validating LFN /store/user/kdeverea...
+INFO 2025-07-19 21:17:38.771 UTC: 	 LFN /store/user/kdeverea is valid.
+INFO 2025-07-19 21:17:38.791 UTC: 	 Will use `gfal-copy`, `gfal-rm` commands for checking write permissions
+INFO 2025-07-19 21:17:38.791 UTC: 	 Will check write permission in /store/user/kdeverea on site T2_CH_CERN
+INFO 2025-07-19 21:17:38.812 UTC: 	 Will use PFN: davs://eoscms.cern.ch:443/eos/cms/store/user/kdeverea/crab3checkwrite_20250719_231738_d55115af-1981-416b-a12b-fb9eca885201/d55115af-1981-416b-a12b-fb9eca885201.tmp
+INFO 2025-07-19 21:17:38.812 UTC: 	 
+Attempting to create (dummy) directory crab3checkwrite_20250719_231738_d55115af-1981-416b-a12b-fb9eca885201 and copy (dummy) file d55115af-1981-416b-a12b-fb9eca885201.tmp to /store/user/kdeverea
+
+INFO 2025-07-19 21:17:38.816 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-copy -p -v -t 180 file:///afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/plottingMacro/d55115af-1981-416b-a12b-fb9eca885201.tmp 'davs://eoscms.cern.ch:443/eos/cms/store/user/kdeverea/crab3checkwrite_20250719_231738_d55115af-1981-416b-a12b-fb9eca885201/d55115af-1981-416b-a12b-fb9eca885201.tmp'
+INFO 2025-07-19 21:17:38.816 UTC: 	 Please wait...
+INFO 2025-07-19 21:17:39.816 UTC: 	 Failed running copy command
+INFO 2025-07-19 21:17:39.817 UTC: 	   Stdout:
+    Copying 85 bytes file:///afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/plottingMacro/d55115af-1981-416b-a12b-fb9eca885201.tmp => davs://eoscms.cern.ch:443/eos/cms/store/user/kdeverea/crab3checkwrite_20250719_231738_d55115af-1981-416b-a12b-fb9eca885201/d55115af-1981-416b-a12b-fb9eca885201.tmp
+    event: [1752959859744] BOTH   GFAL2:CORE:COPY	LIST:ENTER	
+    event: [1752959859744] BOTH   GFAL2:CORE:COPY	LIST:ITEM	file:///afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/plottingMacro/d55115af-1981-416b-a12b-fb9eca885201.tmp => davs://eoscms.cern.ch:443/eos/cms/store/user/kdeverea/crab3checkwrite_20250719_231738_d55115af-1981-416b-a12b-fb9eca885201/d55115af-1981-416b-a12b-fb9eca885201.tmp
+    event: [1752959859744] BOTH   GFAL2:CORE:COPY	LIST:EXIT	
+    event: [1752959859744] BOTH   http_plugin	PREPARE:ENTER	file:///afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/plottingMacro/d55115af-1981-416b-a12b-fb9eca885201.tmp => davs://eoscms.cern.ch:443/eos/cms/store/user/kdeverea/crab3checkwrite_20250719_231738_d55115af-1981-416b-a12b-fb9eca885201/d55115af-1981-416b-a12b-fb9eca885201.tmp
+    
+INFO 2025-07-19 21:17:39.817 UTC: 	   Stderr:
+    gfal-copy error: 1 (Operation not permitted) - DESTINATION MAKE_PARENT HTTP 403 : Permission refused 
+    
+INFO 2025-07-19 21:17:39.820 UTC: 	 
+Checkwrite Result:
+INFO 2025-07-19 21:17:39.820 UTC: 	 Unable to check write permission in /store/user/kdeverea on site T2_CH_CERN
+Please try again later or contact the site administrators sending them the 'crab checkwrite' output as printed above.
+INFO 2025-07-19 21:17:39.821 UTC: 	 Note: You cannot write to a site if you did not ask permission.
+INFO 2025-07-19 21:17:40.377 UTC: 	 Additional diagnostic info for CERN EOS
+== id ==>:
+uid=161760(kdeverea) gid=1399(zh) groups=1399(zh),1097021650 context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+== voms-proxy-info -all ==>:
+subject   : /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kdeverea/CN=869113/CN=Kyle Devereaux/CN=523708696
+issuer    : /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kdeverea/CN=869113/CN=Kyle Devereaux
+identity  : /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kdeverea/CN=869113/CN=Kyle Devereaux
+type      : RFC3820 compliant impersonation proxy
+strength  : 2048
+path      : /tmp/x509up_u161760
+timeleft  : 11:16:21
+key usage : Digital Signature, Key Encipherment
+=== VO cms extension information ===
+VO        : cms
+subject   : /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kdeverea/CN=869113/CN=Kyle Devereaux
+issuer    : /DC=ch/DC=cern/OU=computers/CN=cms-auth.cern.ch
+attribute : /cms/Role=NULL/Capability=NULL
+attribute : /cms/uscms/Role=NULL/Capability=NULL
+timeleft  : 11:16:21
+uri       : voms-cms-auth.cern.ch:15000
+
+== uberftp eoscmsftp.cern.ch pwd ==>:
+
+WARNING 2025-07-19 21:17:40.377 UTC: 	 Command checkwrite failed
+ERROR 2025-07-19 21:17:40.378 UTC: 	 Caught CommandFailedException exception
+Traceback (most recent call last):
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250522.00/bin/crab.py", line 157, in <module>
+    client()
+  File "/cvmfs/cms.cern.ch/share/cms/crab-prod/v3.250522.00/bin/crab.py", line 144, in __call__
+    raise CommandFailedException("Command %s failed" % str(args[0]))
+CRABClient.ClientExceptions.CommandFailedException: Command checkwrite failed
+DEBUG 2025-07-19 21:18:16.252 UTC: 	 CRAB Client version: v3.250522
+DEBUG 2025-07-19 21:18:16.252 UTC: 	 Running on: Linux lxplus807.cern.ch 4.18.0-553.56.1.el8_10.x86_64 #1 SMP Mon Jun 2 12:33:13 EDT 2025 x86_64 x86_64 x86_64 GNU/Linux
+DEBUG 2025-07-19 21:18:16.252 UTC: 	 Not using Singularity
+DEBUG 2025-07-19 21:18:16.252 UTC: 	 Operating System: Red Hat Enterprise Linux 8.10 (Ootpa)
+DEBUG 2025-07-19 21:18:16.252 UTC: 	 Executing command: 'checkwrite'
+DEBUG 2025-07-19 21:18:16.252 UTC: 	 Found CRAB cache file /afs/cern.ch/user/k/kdeverea/.crab3
+DEBUG 2025-07-19 21:18:16.253 UTC: 	 Checking credentials
+DEBUG 2025-07-19 21:18:16.253 UTC: 	 Found proxy file /tmp/x509up_u161760
+DEBUG 2025-07-19 21:18:16.253 UTC: 	 Making sure it has proper VOMS extension
+DEBUG 2025-07-19 21:18:16.253 UTC: 	 Executing command :
+ voms-proxy-info --vo --file /tmp/x509up_u161760
+DEBUG 2025-07-19 21:18:16.769 UTC: 	 output : cms
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-19 21:18:16.769 UTC: 	 Getting proxy life time left
+DEBUG 2025-07-19 21:18:16.769 UTC: 	 Executing command :
+ voms-proxy-info --actimeleft --timeleft --file /tmp/x509up_u161760
+DEBUG 2025-07-19 21:18:17.261 UTC: 	 output : 40544
+40544
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-19 21:18:17.262 UTC: 	 Proxy valid for 11:15:44 hours
+DEBUG 2025-07-19 21:18:17.262 UTC: 	 Retrieving username ...
+DEBUG 2025-07-19 21:18:17.262 UTC: 	 Retrieving username from CRIC...
+DEBUG 2025-07-19 21:18:17.981 UTC: 	 username is kdeverea
+INFO 2025-07-19 21:18:18.833 UTC: 	 Rucio client intialized for account kdeverea
+DEBUG 2025-07-19 21:18:18.833 UTC: 	 Command use: checkwrite
+DEBUG 2025-07-19 21:18:18.833 UTC: 	 Options use: ['--site=T2_US_MIT']
+DEBUG 2025-07-19 21:18:18.833 UTC: 	 Instance is None
+DEBUG 2025-07-19 21:18:18.833 UTC: 	 Server base url is None
+DEBUG 2025-07-19 21:18:18.833 UTC: 	 Retrieving username ...
+DEBUG 2025-07-19 21:18:18.833 UTC: 	 Retrieving username from CRIC...
+DEBUG 2025-07-19 21:18:19.579 UTC: 	 username is kdeverea
+INFO 2025-07-19 21:18:19.580 UTC: 	 Will check write permission in the default location /store/user/<username>
+INFO 2025-07-19 21:18:19.580 UTC: 	 Validating LFN /store/user/kdeverea...
+INFO 2025-07-19 21:18:19.580 UTC: 	 LFN /store/user/kdeverea is valid.
+INFO 2025-07-19 21:18:19.593 UTC: 	 Will use `gfal-copy`, `gfal-rm` commands for checking write permissions
+INFO 2025-07-19 21:18:19.593 UTC: 	 Will check write permission in /store/user/kdeverea on site T2_US_MIT
+INFO 2025-07-19 21:18:19.613 UTC: 	 Will use PFN: davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp
+INFO 2025-07-19 21:18:19.613 UTC: 	 
+Attempting to create (dummy) directory crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e and copy (dummy) file 83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp to /store/user/kdeverea
+
+INFO 2025-07-19 21:18:19.617 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-copy -p -v -t 180 file:///afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/plottingMacro/83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp 'davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp'
+INFO 2025-07-19 21:18:19.617 UTC: 	 Please wait...
+INFO 2025-07-19 21:18:24.158 UTC: 	 
+Successfully created directory crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e and copied file 83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp to /store/user/kdeverea
+INFO 2025-07-19 21:18:24.158 UTC: 	 
+Attempting to delete file davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp
+
+INFO 2025-07-19 21:18:24.159 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-rm -v -t 180 'davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp'
+INFO 2025-07-19 21:18:24.159 UTC: 	 Please wait...
+INFO 2025-07-19 21:18:26.733 UTC: 	 
+Successfully deleted file davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/83eb3b01-991d-4106-a1d0-0c21232d1d3e.tmp
+INFO 2025-07-19 21:18:26.733 UTC: 	 
+Attempting to delete directory davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/
+
+INFO 2025-07-19 21:18:26.734 UTC: 	 Executing command: which scram >/dev/null 2>&1 && eval `scram unsetenv -sh`; gfal-rm -r -v -t 180 'davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/'
+INFO 2025-07-19 21:18:26.734 UTC: 	 Please wait...
+INFO 2025-07-19 21:18:29.456 UTC: 	 
+Successfully deleted directory davs://t2dsk0011.cmsaf.mit.edu:8443/store/user/kdeverea/crab3checkwrite_20250719_231819_83eb3b01-991d-4106-a1d0-0c21232d1d3e/
+INFO 2025-07-19 21:18:29.461 UTC: 	 
+Checkwrite Result:
+INFO 2025-07-19 21:18:29.462 UTC: 	 Success: Able to write in /store/user/kdeverea on site T2_US_MIT

@@ -1,6 +1,6 @@
 ppref_mc_recodebug=[
-    'root://cmsxrootd.fnal.gov//store/user/cbennett/PYTHIA8_HYDJET_DiJet_5360GeV_130X/PYTHIA8_HYDJET_DiJet_5360GeV_RECODEBUG_updatedEra_132X_2024-10-12/241013_021405/0000/PYTHIA8_HYDJET_DiJet_5360GeV_RECODEBUG_1.root'
-    #'root://cmsxrootd.fnal.gov//store/user/rpradhan/Pythia8_LowPU_0p5MEvents_TuneCP5_5360GeV/PrivatePythia8_LowPU_0p5MEvents_RecoDebug/250130_001628/0000/output_RECODEBUG_1.root',
+    #'root://cmsxrootd.fnal.gov//store/user/cbennett/PYTHIA8_HYDJET_DiJet_5360GeV_130X/PYTHIA8_HYDJET_DiJet_5360GeV_RECODEBUG_updatedEra_132X_2024-10-12/241013_021405/0000/PYTHIA8_HYDJET_DiJet_5360GeV_RECODEBUG_1.root'
+    'root://cmsxrootd.fnal.gov//store/user/rpradhan/Pythia8_LowPU_0p5MEvents_TuneCP5_5360GeV/PrivatePythia8_LowPU_0p5MEvents_RecoDebug/250130_001628/0000/output_RECODEBUG_1.root',
     #'root://cmsxrootd.fnal.gov//store/user/rpradhan/Pythia8_LowPU_0p5MEvents_TuneCP5_5360GeV/PrivatePythia8_LowPU_0p5MEvents_RecoDebug/250130_001628/0000/output_RECODEBUG_10.root'
     #~~~~~~~~~~~~~For 2023~~~~~~~~~~~~~~~
 
