@@ -347,7 +347,7 @@ void LabelBinContent(TH1* hist) {
   }
 }
 
-TPad* plotCMSSimple(TCanvas* c, vector<TH1*> hists, const char* title, vector<string> labels,
+TPad* plotCMSSimple(TCanvas* c, vector<TH1D*> hists, const char* title, vector<string> labels,
     vector<Int_t> linecolors, vector<Int_t> linestyles, vector<Int_t> markercolors, vector<Int_t> markerstyles,
     const char* xTitle, double xmin, double xmax,
     const char* yTitle, double ymin, double ymax,
@@ -372,7 +372,7 @@ TPad* plotCMSSimple(TCanvas* c, vector<TH1*> hists, const char* title, vector<st
     // Find global min/max for all hists in the visible x range
     double global_min = 1e30, global_max = -1e30;
     for (size_t ih = 0; ih < hists.size(); ++ih) {
-        TH1* hist = hists[ih];
+        TH1D* hist = hists[ih];
         double x1 = (xmin < xmax) ? xmin : hist->GetXaxis()->GetXmin();
         double x2 = (xmin < xmax) ? xmax : hist->GetXaxis()->GetXmax();
         int binmin = hist->GetXaxis()->FindBin(x1);
@@ -393,7 +393,7 @@ TPad* plotCMSSimple(TCanvas* c, vector<TH1*> hists, const char* title, vector<st
 
     for (int i = 0; i < hists.size(); i++) {
 
-        TH1* hist = hists[i];
+        TH1D* hist = hists[i];
 
         hist->SetLineColor(linecolors[i]);
         if (linestyles[i] == 0) hist->SetLineStyle(1);

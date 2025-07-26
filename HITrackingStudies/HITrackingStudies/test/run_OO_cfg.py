@@ -1,7 +1,7 @@
 ###Options to run
 '''
 To run it, please, do e.g.:
-cmsRun run_PbPb_cfg.py sample="MC_RecoDebug" n=100 usePixelTrks=False  runOverStreams=False 
+cmsRun run_OO_cfg.py sample="MC_RecoDebug" n=100 usePixelTrks=False  runOverStreams=False 
 
 sample="MC_RecoDebug","MC_Reco_AOD","MC_MiniAOD","Data_Reco_AOD","Data_MiniAOD"
 n=integer number of events
@@ -10,7 +10,7 @@ usePixelTrks=False or True
 
 IMPORTANT: only run runOverStreams=True together with sample="Data_Reco_AOD". FIXME: this option is not working for now
 
-To change input files, please, look at pbpb.py file
+To change input files, please, look at oxyoxy.py file
 
 
 for Quick change between 2023 and 2024 data, check the the follwoing items
@@ -58,19 +58,19 @@ options.register ('usePixelTrks',
                   "usePixelTrks")
 options.parseArguments()
 
-from pbpb import pbpb_mc_recodebug as pbpb
+from oxyoxy import oxyoxy_mc_recodebug as oxyoxy
 if options.sample == "MC_Reco_AOD":
-    from pbpb import pbpb_mc_reco_aod as pbpb
+    from oxyoxy import oxyoxy_mc_reco_aod as oxyoxy
 if options.sample == "Data_Reco_AOD":
-    from pbpb import pbpb_data_reco_aod as pbpb
+    from oxyoxy import oxyoxy_data_reco_aod as oxyoxy
 if options.sample == "Data_Reco_AOD" and options.runOverStreams==True :
-    from pbpb import pbpb_data_reco_aod_streams as pbpb
+    from oxyoxy import oxyoxy_data_reco_aod_streams as oxyoxy
 if options.sample == "Data_MiniAOD":
-    from pbpb import pbpb_data_miniaod as pbpb
+    from oxyoxy import oxyoxy_data_miniaod as oxyoxy
 if options.sample == "Data_MiniAOD" and options.runOverStreams==True :
-    from pbpb import pbpb_data_miniaod_streams as pbpb
+    from oxyoxy import oxyoxy_data_miniaod_streams as oxyoxy
 if options.sample == "MC_MiniAOD":
-    from pbpb import pbpb_mc_miniaod as pbpb
+    from oxyoxy import oxyoxy_mc_miniaod as oxyoxy
 
 
 process.maxEvents = cms.untracked.PSet(
@@ -81,7 +81,7 @@ process.options = cms.untracked.PSet(
     wantSummary = cms.untracked.bool(True),
 )
 
-process.TFileService = cms.Service("TFileService", fileName = cms.string('OO_GeneralTracks_ppReco.root'))
+process.TFileService = cms.Service("TFileService", fileName = cms.string('OfficialOOMC_Hijing_5p36TeV.root'))
 
 process.load("SimTracker.TrackAssociation.trackingParticleRecoTrackAsssociation_cfi")
 process.tpRecoAssocGeneralTracks = process.trackingParticleRecoTrackAsssociation.clone()
@@ -99,13 +99,13 @@ process.tpClusterProducer  = process.tpClusterProducerDefault.clone()
 # Input source
 process.source = cms.Source("PoolSource",
     duplicateCheckMode = cms.untracked.string("noDuplicateCheck"),
-    fileNames =  cms.untracked.vstring(pbpb),
+    fileNames =  cms.untracked.vstring(oxyoxy),
     skipEvents = cms.untracked.uint32(0),
     secondaryFileNames = cms.untracked.vstring()
 )
 if options.runOverStreams == True :
     process.source = cms.Source("NewEventStreamFileReader",
-            fileNames =  cms.untracked.vstring(pbpb),
+            fileNames =  cms.untracked.vstring(oxyoxy),
             skipEvents = cms.untracked.uint32(0)
     )
 
@@ -236,16 +236,16 @@ process.p = cms.Path(
     process.tpClusterProducer *
     process.quickTrackAssociatorByHits *
     process.tpRecoAssocGeneralTracks *
-    process.centralityBin *
-    process.hltMB *
-    process.HITrackCorrections *
-    process.anaSeq ## comment if you want to save only histograms
+#    process.centralityBin *
+#    process.hltMB *
+    process.HITrackCorrections
+#    process.anaSeq ## comment if you want to save only histograms
 )
 
 if (options.sample == "MC_Reco_AOD" or options.sample == "Data_Reco_AOD" or options.sample == "MC_MiniAOD" or options.sample == "Data_MiniAOD"):
     process.p = cms.Path(
-        process.eventFilter*
-        process.hltMB *
-        process.centralityBin *
+#        process.eventFilter*
+#        process.hltMB *
+#        process.centralityBin *
         process.anaSeq
     )

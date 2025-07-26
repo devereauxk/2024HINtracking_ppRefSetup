@@ -82,9 +82,9 @@ process.options = cms.untracked.PSet(
     wantSummary = cms.untracked.bool(True),
 )
 
-process.TFileService = cms.Service("TFileService", fileName = cms.string('LowPU_Pythia_5p36TeV_pdgidtest.root'))
+#process.TFileService = cms.Service("TFileService", fileName = cms.string('LowPU_Pythia_5p36TeV_pdgidtest.root'))
 #process.TFileService = cms.Service("TFileService", fileName = cms.string('Data_MiniAOD_5p36TeV.root'))
-#process.TFileService = cms.Service("TFileService", fileName = cms.string('OfficialppMC_Pythia_5p36TeV.root'))
+process.TFileService = cms.Service("TFileService", fileName = cms.string('OfficialppMC_Pythia_5p36TeV_byPdgId.root'))
 
 process.load("SimTracker.TrackAssociation.trackingParticleRecoTrackAsssociation_cfi")
 process.tpRecoAssocGeneralTracks = process.trackingParticleRecoTrackAsssociation.clone()

@@ -10,7 +10,7 @@ usePixelTrks=False or True
 
 IMPORTANT: only run runOverStreams=True together with sample="Data_Reco_AOD". FIXME: this option is not working for now
 
-To change input files, please, look at pbpb.py file
+To change input files, please, look at ppref.py file
 
 
 for Quick change between 2023 and 2024 data, check the the follwoing items

@@ -8,14 +8,19 @@ void plotHist2D_byPdgId() {
   gStyle->SetOptStat(0);
 
   //TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/LowPU_Pythia_5p36TeV_pdgidtest.root");
-  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/crab_QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal_byPdgId/250724_175422/LowPU_Pythia_5p36TeV_pdgidtest.root");
-  std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112}; // 0 is for all other particles
+  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/crab_QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal_byPdgId/250725_211119/OfficialppMC_Pythia_5p36TeV_byPdgId.root");
+  std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112, 9999}; // 0 is for all other particles, 9999 is for all particles
+
+  const char *prefix = "AbsoluteEfficiency_ppOfficialHijing";
+
+  TFile *fweights = new TFile("files_byPdgId/AbsoluteEfficiency_ppOfficialHijing_byPdgId.root", "RECREATE");
 
   char ndir[256] = "HITrackCorrections_byPdgId";
   double ptmax = 120.;
 
   vector<TGraphAsymmErrors*> gEffEtas;
   vector<TGraphAsymmErrors*> gEffPts;
+  vector<TH1D*> hEff_1Ds;
   for (size_t i = 0; i < pdgIdSelections.size(); ++i) {
     int pdgId = pdgIdSelections[i];
     TString pdgStr = Form("%d", pdgId);
@@ -41,10 +46,7 @@ void plotHist2D_byPdgId() {
     rEff->SetMaximum(1.0); rEff->SetMinimum(0.0);
     rEff->SetTitle(Form("Absolute Efficiency pdgId=%d", pdgId));
 
-    // Save weight histogram
-    TFile *fweights = new TFile(Form("files_byPdgId/%s.root", suffix.Data()), "RECREATE");
     rEff->Write();
-    fweights->Close();
 
     // Find bins for projections
     Int_t ptbin04=hSim->GetYaxis()->FindBin(0.41);
@@ -95,6 +97,39 @@ void plotHist2D_byPdgId() {
 
     gEffPts.push_back(gEffPt);
 
+    // Get pT bin edges from the original 2D histogram
+    TAxis* ptAxis = hSim->GetYaxis();
+    int nPtBins = ptAxis->GetNbins();
+    double* ptBinEdges = new double[nPtBins + 1];
+    for (int i = 0; i <= nPtBins; i++) {
+        ptBinEdges[i] = ptAxis->GetBinLowEdge(i + 1);
+    }
+    ptBinEdges[nPtBins] = ptAxis->GetBinUpEdge(nPtBins);
+
+    // Create histogram with exact same binning as original
+    TH1D* hEffPtIntegrated = new TH1D(Form("rEff_1D_%s", pdgStr.Data()), 
+                                      Form("Integrated Eta Efficiency vs pT (pdgId=%d)", pdgId),
+                                      nPtBins, ptBinEdges);
+
+    // Direct calculation from original histograms (more accurate)
+    for (int ipt = 1; ipt <= nPtBins; ipt++) {
+        double simSum = 0, effSum = 0;
+        
+        // Sum over eta bins for this pT bin
+        for (int ieta = etabin10m; ieta <= etabin10p; ieta++) {
+            simSum += hSim->GetBinContent(ieta, ipt);
+            effSum += hEff->GetBinContent(ieta, ipt);
+        }
+        
+        double efficiency = (simSum > 0) ? effSum / simSum : 0;
+        double error = (simSum > 0) ? sqrt(efficiency * (1 - efficiency) / simSum) : 0;
+        
+        hEffPtIntegrated->SetBinContent(ipt, efficiency);
+        hEffPtIntegrated->SetBinError(ipt, error);
+    }
+    hEffPtIntegrated->Write();
+    hEff_1Ds.push_back(hEffPtIntegrated);
+
     TGraphAsymmErrors *gEffEta2 = new TGraphAsymmErrors(); gEffEta2->SetName(Form("gEffEta2_%s", pdgStr.Data()));
     gEffEta2->BayesDivide(hEffEta2,hSimEta2);
     gEffEta2->SetMarkerStyle(24);
@@ -133,7 +168,7 @@ void plotHist2D_byPdgId() {
     c7->cd(1); gPad->SetTicks(); c7->GetPad(1)->SetLeftMargin(0.12); c7->GetPad(1)->SetBottomMargin(0.13); c7->GetPad(1)->SetLogx(0); hDumEtaEff->Draw(); gEffEta->Draw("pc"); gEffEta2->Draw("pc"); legEta->Draw();
 
     c7->cd(2); gPad->SetTicks(); c7->GetPad(2)->SetLeftMargin(0.12); c7->GetPad(2)->SetBottomMargin(0.13); c7->GetPad(2)->SetLogx(); hDumPtEff->Draw(); gEffPt->Draw("pc"); gEffPt2->Draw("pc"); legPt->Draw();
-    saveCanvas(c7, "files_byPdgId", Form("AbsoluteEfficiency_%s", suffix.Data()));
+    saveCanvas(c7, "files_byPdgId", Form("%s_%s", prefix, suffix.Data()));
 
   }
 
@@ -141,12 +176,11 @@ void plotHist2D_byPdgId() {
   // Overlay particle species
   // =================================================================
 
-
   // Overlay all species: plot all gEffEtas and gEffPts on the same canvas, with different colors
 
   // Define colors and markers for each species
-  std::vector<int> colors = {kBlack, kRed, kGreen+2, kBlue, kPink+1, kCyan+1};
-  std::vector<int> markers = {20, 21, 22, 23, 33, 34};
+  std::vector<int> colors = {kBlack, kRed, kSpring, kBlue, kPink+1, kCyan+1, kGreen+2};
+  std::vector<int> markers = {20, 21, 22, 23, 33, 34, 20};
 
   // Dummy histograms for axes
   TH1D* hDumEtaAll = new TH1D("hDumEtaAll",";#eta;Absolute efficiency",60,-2.4,2.4);
@@ -166,7 +200,7 @@ void plotHist2D_byPdgId() {
   legPtAll->SetTextSize(0.037); // Increase font size
 
   // pdgId labels for legend
-  std::vector<TString> pdgLabels = {"Inclusive", "p + \\bar{p}", "#pi^{+} + #pi^{-}", "K^{+} + K^{-}", "#Sigma^{+} + \\bar{#Sigma}^{-}", "#Sigma^{-} + \\bar{#Sigma}^{+}"};
+  std::vector<TString> pdgLabels = {"Inclusive", "p + \\bar{p}", "#pi^{+} + #pi^{-}", "K^{+} + K^{-}", "#Sigma^{+} + \\bar{#Sigma}^{-}", "#Sigma^{-} + \\bar{#Sigma}^{+}", "remainders"};
 
   // Canvas
   TCanvas* cAll = makeMultiCanvas("cAll_species", "Efficiency by Species", 2, 1);
@@ -195,11 +229,13 @@ void plotHist2D_byPdgId() {
   }
   legPtAll->Draw();
 
-  saveCanvas(cAll, "files_byPdgId", "AbsoluteEfficiency_AllSpecies");
+  saveCanvas(cAll, "files_byPdgId", Form("%s_AllSpecies", prefix));
 
-
+  fweights->Close();
 
 }
+
+
 
 void set_plot_style() {
   // nicer colz plots
