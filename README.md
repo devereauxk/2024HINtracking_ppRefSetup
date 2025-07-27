@@ -19,7 +19,7 @@ Replace the `src` folder with our tracking correction repo, set up the envirnome
 ```
 rm -r src
 
-git clone -b ptHatWeightandVzWeight git@github.com:devereauxk/2024HINtracking_ppRefSetup.git src
+git clone git@github.com:devereauxk/2024HINtracking_ppRefSetup.git src
 
 cd src
 cmsenv
