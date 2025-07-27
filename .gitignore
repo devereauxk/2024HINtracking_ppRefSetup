@@ -1,3 +1,6 @@
 __pycache__/
 *.pdf
 *.pyc
+OO_Efficiency/
+ppref_Efficiency/
+*.root
