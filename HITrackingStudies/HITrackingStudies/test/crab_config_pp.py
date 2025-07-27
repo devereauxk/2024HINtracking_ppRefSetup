@@ -9,7 +9,7 @@ config.section_('General')###add a new section of type "General"
 ###General: In this section, the user specifies generic parameters about the request (e.g. request name).
 config.General.workArea     = 'ppref_Efficiency' ###fixed name for projects dir in my area
 
-config.General.requestName  = 'QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal_byPdgId'
+config.General.requestName  = 'MinBias_TuneCP5_5p36TeV-pythia8_vzpthatWeight_vzcut_Nominal_byPdgId'
 
 config.General.transferLogs = False 
 config.General.transferOutputs = True
@@ -37,7 +37,12 @@ config.section_('Data')###add a new section of type "Data"
 #config.Data.inputDataset      = '/Pythia8_NoPU_0p5MEvents_TuneCP5_QCD_ptHat15_5360GeV/rpradhan-PrivatePythia8_NoPU_0p5MEvents_TuneCP5_QCD_ptHat15_RecoDebug-7d0fd9a913ab722b2353469d41166019/USER'
 
 # official pp MC datasets
-config.Data.inputDataset      = '/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/RunIIIpp5p36Winter24DR-NoPU_FEVTDEBUGHLT_forTracking_141X_mcRun3_2024_realistic_ppRef5TeV_v7-v4/GEN-SIM-RECODEBUG'
+# QCD pthat 15
+#config.Data.inputDataset      = '/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/RunIIIpp5p36Winter24DR-NoPU_FEVTDEBUGHLT_forTracking_141X_mcRun3_2024_realistic_ppRef5TeV_v7-v4/GEN-SIM-RECODEBUG'
+
+# minbias
+config.Data.inputDataset      = '/MinBias_TuneCP5_5p36TeV-pythia8/RunIIIpp5p36Winter24DR-NoPU_FEVTDEBUGHLT_forTracking_141X_mcRun3_2024_realistic_ppRef5TeV_v7-v4/GEN-SIM-RECODEBUG'
+
 
 config.Data.splitting         = 'FileBased'
 #config.Data.unitsPerJob       = X ###files per job (but not impose)

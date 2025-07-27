@@ -1,0 +1,189 @@
+DEBUG 2025-07-27 18:21:09.529 UTC: 	 CRAB Client version: v3.250522
+DEBUG 2025-07-27 18:21:09.529 UTC: 	 Running on: Linux lxplus806.cern.ch 4.18.0-553.56.1.el8_10.x86_64 #1 SMP Mon Jun 2 12:33:13 EDT 2025 x86_64 x86_64 x86_64 GNU/Linux
+DEBUG 2025-07-27 18:21:09.529 UTC: 	 Not using Singularity
+DEBUG 2025-07-27 18:21:09.529 UTC: 	 Operating System: Red Hat Enterprise Linux 8.10 (Ootpa)
+DEBUG 2025-07-27 18:21:09.530 UTC: 	 Executing command: 'submit'
+DEBUG 2025-07-27 18:21:09.530 UTC: 	 Found CRAB cache file /afs/cern.ch/user/k/kdeverea/.crab3
+INFO 2025-07-27 18:21:09.538 UTC: 	 Will use CRAB configuration file crab_config_OO.py
+DEBUG 2025-07-27 18:21:09.538 UTC: 	 Loading CRAB configuration file.
+DEBUG 2025-07-27 18:21:09.676 UTC: 	 Will use CRAB plugin ANALYSIS (i.e. will run an analysis job type).
+DEBUG 2025-07-27 18:21:09.740 UTC: 	 Checking credentials
+DEBUG 2025-07-27 18:21:09.740 UTC: 	 Found proxy file /tmp/x509up_u161760
+DEBUG 2025-07-27 18:21:09.740 UTC: 	 Making sure it has proper VOMS extension
+DEBUG 2025-07-27 18:21:09.740 UTC: 	 Executing command :
+ voms-proxy-info --vo --file /tmp/x509up_u161760
+DEBUG 2025-07-27 18:21:10.196 UTC: 	 output : cms
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-27 18:21:10.196 UTC: 	 Getting proxy life time left
+DEBUG 2025-07-27 18:21:10.196 UTC: 	 Executing command :
+ voms-proxy-info --actimeleft --timeleft --file /tmp/x509up_u161760
+DEBUG 2025-07-27 18:21:10.637 UTC: 	 output : 40826
+40826
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-27 18:21:10.638 UTC: 	 Proxy valid for 11:20:26 hours
+DEBUG 2025-07-27 18:21:10.638 UTC: 	 Encoded data for curl request: subresource=delegatedn
+DEBUG 2025-07-27 18:21:10.678 UTC: 	 Registering user credentials on myproxy for /DC=ch/DC=cern/OU=computers/CN=crab-(preprod|prod)-tw(01|02).cern.ch|/DC=ch/DC=cern/OU=computers/CN=crab-dev-tw(01|02|03|04).cern.ch|/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=cmscrab/CN=(817881|373708)/CN=Robot: cms crab|/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=crabint1/CN=373708/CN=Robot: CMS CRAB Integration 1
+DEBUG 2025-07-27 18:21:10.678 UTC: 	 Executing command :
+ voms-proxy-info --identity --file /tmp/x509up_u161760
+DEBUG 2025-07-27 18:21:11.177 UTC: 	 output : /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kdeverea/CN=869113/CN=Kyle Devereaux
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-27 18:21:11.177 UTC: 	 Getting myproxy life time left for 052ede90d28cfb1000957072ae52b782bfbfaf10
+DEBUG 2025-07-27 18:21:11.177 UTC: 	 Executing command :
+ myproxy-info -s myproxy.cern.ch -l 052ede90d28cfb1000957072ae52b782bfbfaf10
+DEBUG 2025-07-27 18:21:11.695 UTC: 	 output : username: 052ede90d28cfb1000957072ae52b782bfbfaf10
+owner: /DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=kdeverea/CN=869113/CN=Kyle Devereaux
+  renewal policy: /DC=ch/DC=cern/OU=computers/CN=crab-(preprod|prod)-tw(01|02).cern.ch|/DC=ch/DC=cern/OU=computers/CN=crab-dev-tw(01|02|03|04).cern.ch|/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=cmscrab/CN=(817881|373708)/CN=Robot: cms crab|/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=crabint1/CN=373708/CN=Robot: CMS CRAB Integration 1
+  trusted retrieval policy: /DC=ch/DC=cern/OU=computers/CN=crab-(preprod|prod)-tw(01|02).cern.ch|/DC=ch/DC=cern/OU=computers/CN=crab-dev-tw(01|02|03|04).cern.ch|/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=cmscrab/CN=(817881|373708)/CN=Robot: cms crab|/DC=ch/DC=cern/OU=Organic Units/OU=Users/CN=crabint1/CN=373708/CN=Robot: CMS CRAB Integration 1
+  timeleft: 531:08:05  (22.1 days)
+
+ error: 
+ retcode : 0
+DEBUG 2025-07-27 18:21:11.695 UTC: 	 Myproxy is valid: 1912080
+DEBUG 2025-07-27 18:21:11.696 UTC: 	 Result of myproxy credential check:
+  Credential exists on myproxy: username: 052ede90d28cfb1000957072ae52b782bfbfaf10  - validity: 22 days, 3:08:00
+DEBUG 2025-07-27 18:21:11.696 UTC: 	 Command use: submit
+DEBUG 2025-07-27 18:21:11.696 UTC: 	 Options use: ['-c', 'crab_config_OO.py']
+DEBUG 2025-07-27 18:21:11.696 UTC: 	 Encoded data for curl request: subresource=version
+DEBUG 2025-07-27 18:21:11.729 UTC: 	 CRABClient version: v3.250522
+DEBUG 2025-07-27 18:21:11.729 UTC: 	 Instance is prod
+DEBUG 2025-07-27 18:21:11.729 UTC: 	 Server base url is cmsweb.cern.ch
+DEBUG 2025-07-27 18:21:11.729 UTC: 	 Command api workflow
+DEBUG 2025-07-27 18:21:11.729 UTC: 	 Started submission
+DEBUG 2025-07-27 18:21:11.729 UTC: 	 Working on /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId
+DEBUG 2025-07-27 18:21:11.730 UTC: 	 Encoded data for curl request: subresource=backendurls
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 Loading required information from the environment
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 Found CMSSW_15_0_8 for el8_amd64_gcc12 with base /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 Loading required information from the environment
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 Found CMSSW_15_0_8 for el8_amd64_gcc12 with base /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 UNIQUE NAME: tarUUID dde51204-b710-414f-9554-2113f23ae2cd 
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 self.config: from WMCore.Configuration import Configuration
+config = Configuration()
+config.section_('General')
+config.General.transferLogs = False
+config.General.workArea = 'OO_Efficiency'
+config.General.transferOutputs = True
+config.General.requestName = 'MinBias_OO_5p36TeV_hijing_Nominal_byPdgId'
+config.section_('JobType')
+config.JobType.psetName = 'run_OO_cfg_byPdgId.py'
+config.JobType.pluginName = 'Analysis'
+config.section_('Data')
+config.Data.splitting = 'FileBased'
+config.Data.inputDataset = '/MinBias_OO_5p36TeV_hijing/HINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM'
+config.Data.inputDBS = 'global'
+config.Data.unitsPerJob = 10
+config.Data.totalUnits = -1
+config.Data.outLFNDirBase = '/store/group/phys_heavyions/kdeverea/Tracking_OO_5p36TeV/'
+config.section_('Site')
+config.Site.storageSite = 'T2_CH_CERN'
+
+DEBUG 2025-07-27 18:21:11.792 UTC: 	 self.config.JobType.psetName: run_OO_cfg_byPdgId.py
+INFO 2025-07-27 18:21:11.793 UTC: 	 Importing CMSSW configuration run_OO_cfg_byPdgId.py
+INFO 2025-07-27 18:21:12.278 UTC: 	 Finished importing CMSSW configuration run_OO_cfg_byPdgId.py
+DEBUG 2025-07-27 18:21:12.278 UTC: 	 Writing CMSSW configuration to /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/PSet.py
+DEBUG 2025-07-27 18:21:12.303 UTC: 	 The following EDM output files will be collected: []
+DEBUG 2025-07-27 18:21:12.303 UTC: 	 The following TFile output files will be collected: ['OfficialOOMC_Hijing_5p36TeV_byPdgId.root']
+DEBUG 2025-07-27 18:21:12.303 UTC: 	 The following user output files (not listed as PoolOuputModule or TFileService in the CMSSW PSet) will be collected: 
+DEBUG 2025-07-27 18:21:12.303 UTC: 	 Loading required information from the environment
+DEBUG 2025-07-27 18:21:12.303 UTC: 	 Found CMSSW_15_0_8 for el8_amd64_gcc12 with base /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8
+DEBUG 2025-07-27 18:21:12.304 UTC: 	 Making tarball in /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/dde51204-b710-414f-9554-2113f23ae2cddefault.tgz
+DEBUG 2025-07-27 18:21:12.308 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/bin
+DEBUG 2025-07-27 18:21:12.308 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/bin to tarball
+DEBUG 2025-07-27 18:21:12.310 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/python
+DEBUG 2025-07-27 18:21:12.310 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/python to tarball
+DEBUG 2025-07-27 18:21:12.428 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/cfipython
+DEBUG 2025-07-27 18:21:12.428 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/cfipython to tarball
+DEBUG 2025-07-27 18:21:12.830 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/lib
+DEBUG 2025-07-27 18:21:12.830 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/lib to tarball
+DEBUG 2025-07-27 18:21:13.181 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/biglib
+DEBUG 2025-07-27 18:21:13.182 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/biglib to tarball
+DEBUG 2025-07-27 18:21:13.182 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/module
+DEBUG 2025-07-27 18:21:13.182 UTC: 	 Checking directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/config/SCRAM/hooks
+DEBUG 2025-07-27 18:21:13.199 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/config/SCRAM/hooks to tarball
+DEBUG 2025-07-27 18:21:13.338 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/AnalyzerCode/interface to tarball
+DEBUG 2025-07-27 18:21:13.340 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/AnalyzerCode/python to tarball
+DEBUG 2025-07-27 18:21:13.345 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/interface to tarball
+DEBUG 2025-07-27 18:21:13.346 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/python to tarball
+DEBUG 2025-07-27 18:21:13.363 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/Configuration/data to tarball
+DEBUG 2025-07-27 18:21:13.365 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/Configuration/python to tarball
+DEBUG 2025-07-27 18:21:13.423 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/EGMAnalysis/data to tarball
+DEBUG 2025-07-27 18:21:13.424 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/EGMAnalysis/interface to tarball
+DEBUG 2025-07-27 18:21:13.425 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/EGMAnalysis/python to tarball
+DEBUG 2025-07-27 18:21:13.427 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/EventAnalysis/python to tarball
+DEBUG 2025-07-27 18:21:13.435 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/JetAnalysis/interface to tarball
+DEBUG 2025-07-27 18:21:13.436 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/JetAnalysis/python to tarball
+DEBUG 2025-07-27 18:21:13.444 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/MuonAnalysis/interface to tarball
+DEBUG 2025-07-27 18:21:13.445 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/MuonAnalysis/python to tarball
+DEBUG 2025-07-27 18:21:13.447 UTC: 	 Adding directory /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HeavyIonsAnalysis/ZDCAnalysis/python to tarball
+DEBUG 2025-07-27 18:21:13.527 UTC: 	 Uploading archive /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/dde51204-b710-414f-9554-2113f23ae2cddefault.tgz (1.035156.1 MB) to the CRAB cache. Using URI https://cmsweb.cern.ch/S3/crabcache_prod
+DEBUG 2025-07-27 18:21:13.848 UTC: 	 Encoded data for curl request: subresource=upload&objecttype=sandbox&tarballname=bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz
+DEBUG 2025-07-27 18:21:13.906 UTC: 	 Will execute:
+curl -f -v -X POST  -H "User-Agent: CRAB" -F "key=kdeverea/sandboxes/bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz" -F "AWSAccessKeyId=715203df6482458ba839e73e6dab634b" -F "policy=eyJleHBpcmF0aW9uIjogIjIwMjUtMDctMjdUMTk6MjE6MTNaIiwgImNvbmRpdGlvbnMiOiBbeyJidWNrZXQiOiAiY3JhYmNhY2hlX3Byb2QifSwgeyJrZXkiOiAia2RldmVyZWEvc2FuZGJveGVzL2JiMGFhNzlkOGMwNTUwNzJmZDM0MDRhNTQ1MDA5NjJmMjM2MjdlZmRkOGEyZmJhYTcyZTdhMDQ2ZjA1Y2ZhOGMudGFyLmd6In1dfQ==" -F "signature=Vu+pS6nCEoWh9j57LGtFrcLva9k=" -F "file=@/afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/dde51204-b710-414f-9554-2113f23ae2cddefault.tgz" "https://s3.cern.ch/crabcache_prod"
+DEBUG 2025-07-27 18:21:15.001 UTC: 	 exitcode: 0
+stdout: b''
+DEBUG 2025-07-27 18:21:15.001 UTC: 	 upload to S3 of sandbox /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/dde51204-b710-414f-9554-2113f23ae2cddefault.tgz completed
+DEBUG 2025-07-27 18:21:15.001 UTC: 	 make sure that object is ready for retrieve
+DEBUG 2025-07-27 18:21:16.003 UTC: 	 Encoded data for curl request: subresource=download&objecttype=sandbox&tarballname=bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz&clientmethod=head_object
+DEBUG 2025-07-27 18:21:16.045 UTC: 	 PreSignedUrl to download sandbox received OK
+DEBUG 2025-07-27 18:21:16.048 UTC: 	 Will execute:
+ curl -v -s -f -o /dev/null --head  "https://s3.cern.ch/crabcache_prod/kdeverea/sandboxes/bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz?AWSAccessKeyId=715203df6482458ba839e73e6dab634b&Signature=0XKn0%2BStLJpdTmkzad0MhfOomQM%3D&Expires=1753644076"
+DEBUG 2025-07-27 18:21:16.076 UTC: 	 exitcode: 0
+stdout: b''
+DEBUG 2025-07-27 18:21:16.076 UTC: 	 sandbox /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/dde51204-b710-414f-9554-2113f23ae2cddefault.tgz successfully uploaded to S3
+DEBUG 2025-07-27 18:21:16.076 UTC: 	 Loading required information from the environment
+DEBUG 2025-07-27 18:21:16.076 UTC: 	 Found CMSSW_15_0_8 for el8_amd64_gcc12 with base /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8
+DEBUG 2025-07-27 18:21:16.076 UTC: 	 Making tarball in /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/debugFiles.tgz
+DEBUG 2025-07-27 18:21:16.085 UTC: 	 Uploading archive /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/debugFiles.tgz (3 KB) to the CRAB cache. Using URI https://cmsweb.cern.ch/S3/crabcache_prod
+DEBUG 2025-07-27 18:21:16.088 UTC: 	 Encoded data for curl request: subresource=upload&objecttype=sandbox&tarballname=50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz
+DEBUG 2025-07-27 18:21:16.134 UTC: 	 Will execute:
+curl -f -v -X POST  -H "User-Agent: CRAB" -F "key=kdeverea/sandboxes/50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz" -F "AWSAccessKeyId=715203df6482458ba839e73e6dab634b" -F "policy=eyJleHBpcmF0aW9uIjogIjIwMjUtMDctMjdUMTk6MjE6MTZaIiwgImNvbmRpdGlvbnMiOiBbeyJidWNrZXQiOiAiY3JhYmNhY2hlX3Byb2QifSwgeyJrZXkiOiAia2RldmVyZWEvc2FuZGJveGVzLzUwZTE4YjllOTVhZGQzODM1ZTAzNGNkYTZmMWI4M2E5YmE1YTM4OGZiNzljNjY1MjhhYmI5ZTYxMTk3YmQ0YzgudGFyLmd6In1dfQ==" -F "signature=VYdGdbQu5RTsBX+eyMG8LAzEA0c=" -F "file=@/afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/debugFiles.tgz" "https://s3.cern.ch/crabcache_prod"
+DEBUG 2025-07-27 18:21:16.183 UTC: 	 exitcode: 0
+stdout: b''
+DEBUG 2025-07-27 18:21:16.183 UTC: 	 upload to S3 of sandbox /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/debugFiles.tgz completed
+DEBUG 2025-07-27 18:21:16.183 UTC: 	 make sure that object is ready for retrieve
+DEBUG 2025-07-27 18:21:17.184 UTC: 	 Encoded data for curl request: subresource=download&objecttype=sandbox&tarballname=50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz&clientmethod=head_object
+DEBUG 2025-07-27 18:21:17.221 UTC: 	 PreSignedUrl to download sandbox received OK
+DEBUG 2025-07-27 18:21:17.223 UTC: 	 Will execute:
+ curl -v -s -f -o /dev/null --head  "https://s3.cern.ch/crabcache_prod/kdeverea/sandboxes/50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz?AWSAccessKeyId=715203df6482458ba839e73e6dab634b&Signature=r4CExOtu%2BnzZIFh3XuBp8JiIMP4%3D&Expires=1753644077"
+DEBUG 2025-07-27 18:21:17.250 UTC: 	 exitcode: 0
+stdout: b''
+DEBUG 2025-07-27 18:21:17.250 UTC: 	 sandbox /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/inputs/debugFiles.tgz successfully uploaded to S3
+DEBUG 2025-07-27 18:21:17.250 UTC: 	 Result uploading input files: bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz 
+WARNING 2025-07-27 18:21:17.250 UTC: 	 Warning: The following output files will not be published, as they are not EDM files: ['OfficialOOMC_Hijing_5p36TeV_byPdgId.root']
+DEBUG 2025-07-27 18:21:17.251 UTC: 	 submit() - self.configuration from WMCore.Configuration import Configuration
+config = Configuration()
+config.section_('General')
+config.General.transferLogs = False
+config.General.workArea = 'OO_Efficiency'
+config.General.transferOutputs = True
+config.General.requestName = 'MinBias_OO_5p36TeV_hijing_Nominal_byPdgId'
+config.section_('JobType')
+config.JobType.psetName = 'run_OO_cfg_byPdgId.py'
+config.JobType.pluginName = 'Analysis'
+config.section_('Data')
+config.Data.splitting = 'FileBased'
+config.Data.inputDataset = '/MinBias_OO_5p36TeV_hijing/HINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM'
+config.Data.inputDBS = 'global'
+config.Data.unitsPerJob = 10
+config.Data.totalUnits = -1
+config.Data.outLFNDirBase = '/store/group/phys_heavyions/kdeverea/Tracking_OO_5p36TeV/'
+config.section_('Site')
+config.Site.storageSite = 'T2_CH_CERN'
+
+DEBUG 2025-07-27 18:21:17.251 UTC: 	 submit() - self.configreq {'dryrun': 0, 'workflow': 'crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId', 'saveoutput': 1, 'savelogsflag': 0, 'inputdata': '/MinBias_OO_5p36TeV_hijing/HINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM', 'nonvaliddata': 0, 'userfiles': [], 'dbsurl': 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader', 'useparent': 0, 'ignorelocality': 0, 'splitalgo': 'FileBased', 'algoargs': 10, 'totalunits': -1, 'lfn': '/store/group/phys_heavyions/kdeverea/Tracking_OO_5p36TeV/', 'publication': 1, 'publishdbsurl': 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter', 'jobtype': 'Analysis', 'generator': 'pythia', 'addoutputfiles': [], 'maxjobruntime': 1250, 'numcores': 1, 'maxmemory': 2000, 'priority': 10, 'nonprodsw': 0, 'asyncdest': 'T2_CH_CERN', 'requireaccelerator': 0, 'oneEventMode': 0, 'extrajdl': [], 'ignoreglobalblacklist': 0, 'partialdataset': 0, 'inputblocks': []}
+DEBUG 2025-07-27 18:21:17.251 UTC: 	 submit() - jobconfig {'addoutputfiles': [], 'tfileoutfiles': ['OfficialOOMC_Hijing_5p36TeV_byPdgId.root'], 'edmoutfiles': [], 'jobarch': 'el8_amd64_gcc12', 'jobminuarch': 'x86-64-v3', 'jobsw': 'CMSSW_15_0_8', 'inputdata': '/MinBias_OO_5p36TeV_hijing/HINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM', 'cacheurl': 'https://cmsweb.cern.ch/S3/crabcache_prod', 'cachefilename': 'bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz', 'debugfilename': '50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz', 'jobtype': 'Analysis'}
+INFO 2025-07-27 18:21:17.251 UTC: 	 Sending the request to the server at cmsweb.cern.ch
+DEBUG 2025-07-27 18:21:17.251 UTC: 	 Submitting {'dryrun': 0, 'workflow': 'crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId', 'saveoutput': 1, 'savelogsflag': 0, 'inputdata': '/MinBias_OO_5p36TeV_hijing/HINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM', 'nonvaliddata': 0, 'userfiles': [], 'dbsurl': 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader', 'useparent': 0, 'ignorelocality': 0, 'splitalgo': 'FileBased', 'algoargs': 10, 'totalunits': -1, 'lfn': '/store/group/phys_heavyions/kdeverea/Tracking_OO_5p36TeV/', 'publication': 1, 'publishdbsurl': 'https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter', 'jobtype': 'Analysis', 'generator': 'pythia', 'addoutputfiles': [], 'maxjobruntime': 1250, 'numcores': 1, 'maxmemory': 2000, 'priority': 10, 'nonprodsw': 0, 'asyncdest': 'T2_CH_CERN', 'requireaccelerator': 0, 'oneEventMode': 0, 'extrajdl': [], 'ignoreglobalblacklist': 0, 'partialdataset': 0, 'inputblocks': [], 'tfileoutfiles': ['OfficialOOMC_Hijing_5p36TeV_byPdgId.root'], 'edmoutfiles': [], 'jobarch': 'el8_amd64_gcc12', 'jobminuarch': 'x86-64-v3', 'jobsw': 'CMSSW_15_0_8', 'cacheurl': 'https://cmsweb.cern.ch/S3/crabcache_prod', 'cachefilename': 'bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz', 'debugfilename': '50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz'} 
+DEBUG 2025-07-27 18:21:17.251 UTC: 	 Encoded data for curl request: dryrun=0&workflow=crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId&saveoutput=1&savelogsflag=0&inputdata=%2FMinBias_OO_5p36TeV_hijing%2FHINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2%2FAODSIM&nonvaliddata=0&dbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fglobal%2FDBSReader&useparent=0&ignorelocality=0&splitalgo=FileBased&algoargs=10&totalunits=-1&lfn=%2Fstore%2Fgroup%2Fphys_heavyions%2Fkdeverea%2FTracking_OO_5p36TeV%2F&publication=1&publishdbsurl=https%3A%2F%2Fcmsweb.cern.ch%2Fdbs%2Fprod%2Fphys03%2FDBSWriter&jobtype=Analysis&generator=pythia&maxjobruntime=1250&numcores=1&maxmemory=2000&priority=10&nonprodsw=0&asyncdest=T2_CH_CERN&requireaccelerator=0&oneEventMode=0&ignoreglobalblacklist=0&partialdataset=0&jobarch=el8_amd64_gcc12&jobminuarch=x86-64-v3&jobsw=CMSSW_15_0_8&cacheurl=https%3A%2F%2Fcmsweb.cern.ch%2FS3%2Fcrabcache_prod&cachefilename=bb0aa79d8c055072fd3404a54500962f23627efdd8a2fbaa72e7a046f05cfa8c.tar.gz&debugfilename=50e18b9e95add3835e034cda6f1b83a9ba5a388fb79c66528abb9e61197bd4c8.tar.gz&tfileoutfiles=OfficialOOMC_Hijing_5p36TeV_byPdgId.root
+DEBUG 2025-07-27 18:21:17.900 UTC: 	 Result: {'result': [{'RequestName': '250727_182117:kdeverea_crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId'}]}
+INFO 2025-07-27 18:21:17.902 UTC: 	 Success: Your task has been delivered to the prod CRAB3 server.
+INFO 2025-07-27 18:21:17.902 UTC: 	 Task name: 250727_182117:kdeverea_crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId
+INFO 2025-07-27 18:21:17.902 UTC: 	 Project dir: OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId
+INFO 2025-07-27 18:21:17.902 UTC: 	 Please use ' crab status -d OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId ' to check how the submission process proceeds.
+DEBUG 2025-07-27 18:21:17.902 UTC: 	 About to return
+INFO 2025-07-27 18:21:17.905 UTC: 	 Log file is /afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OO_Efficiency/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/crab.log

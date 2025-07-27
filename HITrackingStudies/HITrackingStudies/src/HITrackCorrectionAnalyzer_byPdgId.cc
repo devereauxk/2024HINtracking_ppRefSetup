@@ -71,7 +71,7 @@ class HITrackCorrectionAnalyzer_byPdgId : public edm::one::EDAnalyzer<edm::one::
       TH1F * pthat_;
       TF1 * vtxWeightFunc_;
 
-      std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112}; // 0 is for all other particles
+      std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112, 9999}; // 0 is for all other particles, 9999 is for remainder
       TH1F * pdgId_;
 
       HITrackCorrectionTreeHelper treeHelper_;
@@ -326,11 +326,18 @@ HITrackCorrectionAnalyzer_byPdgId::analyze(const edm::Event& iEvent, const edm::
 
      // fill PDG histograms
      int pdgId = tp->pdgId();
+     bool pdgSelected = false;
      for (int i = 0; i < (int)pdgIdSelections.size(); ++i) {
        if (i == 0 || std::abs(pdgId) == pdgIdSelections[i]) {
          trkCorr2D_["hsim"][pdgIdSelections[i]]->Fill(tp->eta(), tp->pt(), w);
          pdgId_->Fill(i);
+         if (i != 0) pdgSelected = true;
        }
+     }
+     if (!pdgSelected) {
+       trkCorr2D_["hsim"][9999]->Fill(tp->eta(), tp->pt(), w); // fill for all other particles
+       // debug printout of remainder particle pdgs
+       //std::cout<<pdgId<<std::endl;
      }
 
      trkCorr3D_["hsim3D"]->Fill(tp->eta(),tp->pt(), occ, w);
@@ -363,11 +370,16 @@ HITrackCorrectionAnalyzer_byPdgId::analyze(const edm::Event& iEvent, const edm::
      if( nrec>0 && fillNTuples_ ) treeHelper_.Set(*tp, *(rt.begin()->first.get()), vsorted[0], rt.size(), cbin);
      if( nrec==0 && fillNTuples_ ) treeHelper_.Set(*tp, cbin);
 
+     pdgSelected = false;
      for (int i = 0; i < (int)pdgIdSelections.size(); ++i) {
        if (i == 0 || std::abs(pdgId) == pdgIdSelections[i]) {
          if(nrec>0) trkCorr2D_["heff"][pdgIdSelections[i]]->Fill(tp->eta(),tp->pt(), w);
-       }
-     }     
+         if (i != 0) pdgSelected = true;
+        }
+     }
+     if (!pdgSelected) {
+       if(nrec>0) trkCorr2D_["heff"][9999]->Fill(tp->eta(),tp->pt(), w); // fill for all other particles
+     }
 
      if(nrec>0) trkCorr3D_["heff3D"]->Fill(tp->eta(),tp->pt(), occ, w);
      //if(nrec>1) trkCorr2D_["hmul"]->Fill(tp->eta(),tp->pt(), w);

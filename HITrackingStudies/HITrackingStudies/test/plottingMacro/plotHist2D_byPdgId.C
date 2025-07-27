@@ -8,12 +8,12 @@ void plotHist2D_byPdgId() {
   gStyle->SetOptStat(0);
 
   //TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/LowPU_Pythia_5p36TeV_pdgidtest.root");
-  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/crab_QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal_byPdgId/250725_211119/OfficialppMC_Pythia_5p36TeV_byPdgId.root");
-  std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112, 9999}; // 0 is for all other particles, 9999 is for all particles
+  TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OfficialOOMC_Hijing_5p36TeV_byPdgId.root");
+  std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112, 9999}; // 0 is for all particles, 9999 is for particles not specified
 
-  const char *prefix = "AbsoluteEfficiency_ppOfficialHijing";
+  const char *prefix = "AbsoluteEfficiency_OOOfficialHijing";
 
-  TFile *fweights = new TFile("files_byPdgId/AbsoluteEfficiency_ppOfficialHijing_byPdgId.root", "RECREATE");
+  TFile *fweights = new TFile(Form("files_byPdgId/%s_byPdgId.root", prefix), "RECREATE");
 
   char ndir[256] = "HITrackCorrections_byPdgId";
   double ptmax = 120.;

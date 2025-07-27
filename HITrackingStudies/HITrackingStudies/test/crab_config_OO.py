@@ -9,9 +9,9 @@ config.section_('General')###add a new section of type "General"
 ###General: In this section, the user specifies generic parameters about the request (e.g. request name).
 config.General.workArea     = 'OO_Efficiency' ###fixed name for projects dir in my area
 
-config.General.requestName  = 'MinBias_OO_5p36TeV_hijing_Nominal'
+config.General.requestName  = 'MinBias_OO_5p36TeV_hijing_Nominal_byPdgId'
 
-config.General.transferLogs = True 
+config.General.transferLogs = False 
 config.General.transferOutputs = True
 
 ################################
@@ -20,7 +20,7 @@ config.section_('JobType')###add a new section of type "JobType"
 ###JobType: This section aims to contain all the parameters of the user job type and 
 ###related configurables (e.g. CMSSW parameter-set configuration file, additional input files, etc.).
 config.JobType.pluginName     = 'Analysis'
-config.JobType.psetName       = 'run_OO_cfg.py'
+config.JobType.psetName       = 'run_OO_cfg_byPdgId.py'
 
 #config.JobType.allowNonProductionCMSSW = True
 #config.JobType.maxMemoryMB    = 2500
