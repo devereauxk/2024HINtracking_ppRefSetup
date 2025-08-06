@@ -28,9 +28,10 @@ void plotHist2D() {
   //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_ppref_5p36TeV/QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8/crab_QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal/250723_153015/OfficialppMC_Pythia_5p36TeV.root");
   //const char* suffix = "QCD_pThat-15to1200_TuneCP5_5p36TeV_pythia8_vzpthatWeight_vzcut_Nominal";
 
-  TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OfficialOOMC_Hijing_5p36TeV.root");
-  const char* suffix = "OfficialOOMC_Hijing_5p36TeV";
-  
+  // private NeNe Hijing minbias
+  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_NeNe_5p36TeV/MinBias_Hijing_NeNe_5362GeV/crab_MinBias_NeNe_5p36TeV_hijing_Nominal/250801_221550/OfficialNeNeMC_Hijing_5p36TeV.root");
+  const char* suffix = "OfficialNeNeMC_Hijing_5p36TeV";
+
 
   char ndir[256] = "HITrackCorrections";
   double ptmax = 120.;

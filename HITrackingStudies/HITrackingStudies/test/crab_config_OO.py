@@ -9,6 +9,7 @@ config.section_('General')###add a new section of type "General"
 ###General: In this section, the user specifies generic parameters about the request (e.g. request name).
 config.General.workArea     = 'OO_Efficiency' ###fixed name for projects dir in my area
 
+#config.General.requestName  = 'QCD-dijet_Pthat-15_TuneCP5_OO_5p36TeV_pythia8_Nominal_byPdgId'
 config.General.requestName  = 'MinBias_OO_5p36TeV_hijing_Nominal_byPdgId'
 
 config.General.transferLogs = False 
@@ -32,8 +33,11 @@ config.section_('Data')###add a new section of type "Data"
 ###including the splitting parameters.
 #config.Data.inputDataset      = '/Hydjet_5360GeV_GEN_SIM/subehera-MB_Hydjet_Run3_recodebug_step4-625ffd2ccfcbfe30cf75ced0ae60f7d8/USER'
 
-# official OO Hijing datasets
+# official OO Hijing
 config.Data.inputDataset      = '/MinBias_OO_5p36TeV_hijing/HINOOSpring25Reco-NoPU_150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM'
+
+# official OO pythia+hijing
+#config.Data.inputDataset      = '/QCD-dijet_Pthat-15_TuneCP5_OO_5p36TeV_pythia8/HINOOSpring25Reco-150X_mcRun3_2025_forOO_realistic_v7-v2/AODSIM'
 
 config.Data.splitting         = 'FileBased'
 #config.Data.unitsPerJob       = X ###files per job (but not impose)

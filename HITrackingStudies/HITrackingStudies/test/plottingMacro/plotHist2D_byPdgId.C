@@ -7,13 +7,21 @@ void plotHist2D_byPdgId() {
 
   gStyle->SetOptStat(0);
 
-  //TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_14_1_7/src/HITrackingStudies/HITrackingStudies/test/LowPU_Pythia_5p36TeV_pdgidtest.root");
-  TFile *f = new TFile("/afs/cern.ch/user/k/kdeverea/CMSSW_15_0_8/src/HITrackingStudies/HITrackingStudies/test/OfficialOOMC_Hijing_5p36TeV_byPdgId.root");
+  // official OO hijing
+  //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_OO_5p36TeV/MinBias_OO_5p36TeV_hijing/crab_MinBias_OO_5p36TeV_hijing_Nominal_byPdgId/250728_183546/OfficialOOMC_Hijing_5p36TeV_byPdgId.root");
+  //const char* prefix = "OfficialOOMC_Hijing_5p36TeV_byPdgId";
+
+  // official OO pythia+hijing
+  //TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_OO_5p36TeV/QCD-dijet_Pthat-15_TuneCP5_OO_5p36TeV_pythia8/crab_QCD-dijet_Pthat-15_TuneCP5_OO_5p36TeV_pythia8_Nominal_byPdgId/250727_214327/OfficialOOMC_PythiaHijing_5p36TeV_byPdgId.root");
+  //const char* prefix = "OfficialOOMC_PythiaHijing_5p36TeV_byPdgId";
+
+  // private NeNe Hijing minbias
+  TFile *f = new TFile("/eos/cms/store/group/phys_heavyions/kdeverea/Tracking_NeNe_5p36TeV/MinBias_Hijing_NeNe_5362GeV/crab_MinBias_NeNe_5p36TeV_hijing_Nominal_byPdgId/250801_190113/OfficialNeNeMC_Hijing_5p36TeV_byPdgId.root");
+  const char* prefix = "OfficialNeNeMC_Hijing_5p36TeV_byPdgId";
+
   std::vector<int> pdgIdSelections = {0, 2212, 211, 321, 3222, 3112, 9999}; // 0 is for all particles, 9999 is for particles not specified
 
-  const char *prefix = "AbsoluteEfficiency_OOOfficialHijing";
-
-  TFile *fweights = new TFile(Form("files_byPdgId/%s_byPdgId.root", prefix), "RECREATE");
+  TFile *fweights = new TFile(Form("files_byPdgId/AbsoluteEfficiency_%s.root", prefix), "RECREATE");
 
   char ndir[256] = "HITrackCorrections_byPdgId";
   double ptmax = 120.;
@@ -168,7 +176,7 @@ void plotHist2D_byPdgId() {
     c7->cd(1); gPad->SetTicks(); c7->GetPad(1)->SetLeftMargin(0.12); c7->GetPad(1)->SetBottomMargin(0.13); c7->GetPad(1)->SetLogx(0); hDumEtaEff->Draw(); gEffEta->Draw("pc"); gEffEta2->Draw("pc"); legEta->Draw();
 
     c7->cd(2); gPad->SetTicks(); c7->GetPad(2)->SetLeftMargin(0.12); c7->GetPad(2)->SetBottomMargin(0.13); c7->GetPad(2)->SetLogx(); hDumPtEff->Draw(); gEffPt->Draw("pc"); gEffPt2->Draw("pc"); legPt->Draw();
-    saveCanvas(c7, "files_byPdgId", Form("%s_%s", prefix, suffix.Data()));
+    saveCanvas(c7, "files_byPdgId", Form("AbsoluteEfficiency_%s_%s", prefix, suffix.Data()));
 
   }
 
@@ -229,7 +237,7 @@ void plotHist2D_byPdgId() {
   }
   legPtAll->Draw();
 
-  saveCanvas(cAll, "files_byPdgId", Form("%s_AllSpecies", prefix));
+  saveCanvas(cAll, "files_byPdgId", Form("AbsoluteEfficiency_%s_AllSpecies", prefix));
 
   fweights->Close();
 
